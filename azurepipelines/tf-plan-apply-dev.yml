@@ -25,7 +25,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory/resources)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
           backendServiceArm: $(azureResourceManagerConnection)
           backendAzureRmResourceGroupName: $(stateResourceGroup)
           backendAzureRmStorageAccountName: $(stateStorageAccount)
@@ -36,14 +36,14 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'validate'
-          workingDirectory: '$(System.DefaultWorkingDirectory/resources)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
       - task: TerraformTaskv2@2
         displayName: Terraform Plan
         inputs:
           provider: 'azurerm'
           command: 'plan'
           commandOptions: '-out=tf.plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory/resources)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
 
 - stage: ApplyDev
   displayName: ApplyDev
@@ -61,4 +61,4 @@ stages:
           provider: 'azurerm'
           command: 'apply'
           commandOptions: 'tf.plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory/resources)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
