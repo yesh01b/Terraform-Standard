@@ -15,10 +15,10 @@ stages:
       steps:
       - checkout: self
         clean: true
-      - task: TerraformInstaller@1
-        displayName: Install Terraform 1.7.0
-        inputs:
-          terraformVersion: 1.7.0
+      # - task: TerraformInstaller@1
+      #   displayName: Install Terraform 1.7.0
+      #   inputs:
+      #     terraformVersion: 1.7.0
 
       - task: TerraformTaskv2@2
         displayName: Intialise Terraform
