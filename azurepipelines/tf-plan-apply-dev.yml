@@ -44,6 +44,7 @@ stages:
           command: 'plan'
           commandOptions: '-out=tf.plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
+          environmentServiceNameAzureRM: $(azureResourceManagerConnection)
 
 - stage: ApplyDev
   displayName: ApplyDev
@@ -62,3 +63,4 @@ stages:
           command: 'apply'
           commandOptions: 'tf.plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
+          environmentServiceNameAzureRM: $(azureResourceManagerConnection)
