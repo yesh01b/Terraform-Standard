@@ -45,47 +45,6 @@ stages:
           commandOptions: '-out=tf.plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
           environmentServiceNameAzureRM: $(azureResourceManagerConnection)
-
-- stage: ApplyDev
-  displayName: ApplyDev
-  jobs:
-    - job: Applydev
-      displayName: ApplyDev
-      pool:
-        vmImage: ubuntu-latest
-      steps:
-      - checkout: self
-        clean: true
-      - task: TerraformInstaller@1
-        displayName: Install Terraform 1.7.0
-        inputs:
-          terraformVersion: 1.7.0
-
-      - task: TerraformTaskv2@2
-        displayName: Intialise Terraform
-        inputs:
-          provider: 'azurerm'
-          command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
-          backendServiceArm: $(azureResourceManagerConnection)
-          backendAzureRmResourceGroupName: $(stateResourceGroup)
-          backendAzureRmStorageAccountName: $(stateStorageAccount)
-          backendAzureRmContainerName: $(stateContainer)
-          backendAzureRmKey: 'tf-$(env)-$(loc).tfstate'
-      - task: TerraformTaskv2@2
-        displayName: Terraform Validate
-        inputs:
-          provider: 'azurerm'
-          command: 'validate'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
-      - task: TerraformTaskv2@2
-        displayName: Terraform Plan
-        inputs:
-          provider: 'azurerm'
-          command: 'plan'
-          commandOptions: '-out=tf.plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
-          environmentServiceNameAzureRM: $(azureResourceManagerConnection)
       - task: TerraformTaskv2@2
         displayName: Terraform Apply
         inputs:
@@ -94,4 +53,3 @@ stages:
           commandOptions: 'tf.plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
           environmentServiceNameAzureRM: $(azureResourceManagerConnection)
-
