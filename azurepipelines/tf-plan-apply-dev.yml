@@ -26,7 +26,7 @@ stages:
           provider: 'azurerm'
           command: 'init'
           workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
-          environmentServiceNameAzureRM: $(azureResourceManagerConnection)
+          backendServiceArm: $(azureResourceManagerConnection)
           backendAzureRmResourceGroupName: $(stateResourceGroup)
           backendAzureRmStorageAccountName: $(stateStorageAccount)
           backendAzureRmContainerName: $(stateContainer)
