@@ -11,7 +11,7 @@ stages:
     - job: Plandev
       displayName: PlanDev
       pool:
-        vmImage: windows-latest
+        vmImage: ubuntu-latest
       steps:
       - checkout: self
         clean: true
