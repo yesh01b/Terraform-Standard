@@ -1,0 +1,7 @@
+variables:
+  env: "dev"
+  loc: "uks"
+  azureResourceManagerConnection: "Pay-As-You-Go (c28f6b93-1215-4e42-942b-3a26679a76bf)"
+  stateResourceGroup: "rg-tf-yb-dev-uks-01"
+  stateStorageAccount: "saybtfdevuks01"
+  stateContainer: "tfstate"
