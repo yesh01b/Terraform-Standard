@@ -45,11 +45,18 @@ stages:
           commandOptions: '-out=tf.plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
           environmentServiceNameAzureRM: $(azureResourceManagerConnection)
-      - task: TerraformTaskv2@2
-        displayName: Terraform Apply
-        inputs:
-          provider: 'azurerm'
-          command: 'apply'
-          commandOptions: 'tf.plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
-          environmentServiceNameAzureRM: $(azureResourceManagerConnection)
+- stage: PlanDev
+  displayName: PlanDev
+  jobs:
+    - job: Plandev
+      displayName: PlanDev
+      pool:
+        vmImage: ubuntu-latest
+    - task: TerraformTaskv2@2
+      displayName: Terraform Apply
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        commandOptions: 'tf.plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/resources'
+        environmentServiceNameAzureRM: $(azureResourceManagerConnection)
