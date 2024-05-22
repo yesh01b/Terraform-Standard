@@ -8,7 +8,7 @@ stages:
 - stage: PlanDev
   displayName: PlanDev
   jobs:
-    - job: Plan dev
+    - job: Plandev
       displayName: PlanDev
       pool:
         vmImage: windows-latest
@@ -44,7 +44,7 @@ stages:
   displayName: ApplyDev
   jobs:
     - job: Apply dev
-      displayName: PlanDev
+      displayName: ApplyDev
       pool:
         vmImage: windows-latest
       steps:
