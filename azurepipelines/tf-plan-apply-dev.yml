@@ -43,7 +43,7 @@ stages:
 - stage: ApplyDev
   displayName: ApplyDev
   jobs:
-    - job: Apply dev
+    - job: Applydev
       displayName: ApplyDev
       pool:
         vmImage: windows-latest
