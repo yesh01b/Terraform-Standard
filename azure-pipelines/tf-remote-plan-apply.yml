@@ -45,18 +45,23 @@ stages:
               commandOptions: "-out=tf.plan"
               workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
               environmentServiceNameAzureRM: $(azureResourceManagerConnection)
-  - stage: PlanDev
-    displayName: PlanDev
+  - stage: ApplyDev
+    dependsOn: PlanDev
+    displayName: Terrafrom apply Dev
     jobs:
-      - job: Plandev
-        displayName: PlanDev
+      - job: ApplyDev
+        displayName: ApplyDev
         pool:
           vmImage: ubuntu-latest
-      - task: TerraformTaskv2@2
-        displayName: Terraform Apply
-        inputs:
-          provider: "azurerm"
-          command: "apply"
-          commandOptions: "tf.plan"
-          workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
-          environmentServiceNameAzureRM: $(azureResourceManagerConnection)
+        steps:
+          - checkout: self
+            clean: true
+            
+          - task: TerraformTaskv2@2
+            displayName: Terraform Apply
+            inputs:
+              provider: "azurerm"
+              command: "apply"
+              commandOptions: "tf.plan"
+              workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
+              environmentServiceNameAzureRM: $(azureResourceManagerConnection)
