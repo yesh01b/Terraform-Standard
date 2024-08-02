@@ -1,0 +1,62 @@
+trigger: none
+pr: none
+
+variables:
+  - template: environments/dev-uks.yml
+
+stages:
+  - stage: PlanDev
+    displayName: PlanDev
+    jobs:
+      - job: Plandev
+        displayName: PlanDev
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: self
+            clean: true
+          - task: TerraformInstaller@1
+            displayName: Install Terraform 1.7.0
+            inputs:
+              terraformVersion: 1.7.0
+
+          - task: TerraformTaskv2@2
+            displayName: Intialise Terraform
+            inputs:
+              provider: "azurerm"
+              command: "init"
+              workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
+              backendServiceArm: $(azureResourceManagerConnection)
+              backendAzureRmResourceGroupName: $(stateResourceGroup)
+              backendAzureRmStorageAccountName: $(stateStorageAccount)
+              backendAzureRmContainerName: $(stateContainer)
+              backendAzureRmKey: "tf-$(env)-$(loc).tfstate"
+          - task: TerraformTaskv2@2
+            displayName: Terraform Validate
+            inputs:
+              provider: "azurerm"
+              command: "validate"
+              workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
+          - task: TerraformTaskv2@2
+            displayName: Terraform Plan
+            inputs:
+              provider: "azurerm"
+              command: "plan"
+              commandOptions: "-out=tf.plan"
+              workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
+              environmentServiceNameAzureRM: $(azureResourceManagerConnection)
+  - stage: PlanDev
+    displayName: PlanDev
+    jobs:
+      - job: Plandev
+        displayName: PlanDev
+        pool:
+          vmImage: ubuntu-latest
+      - task: TerraformTaskv2@2
+        displayName: Terraform Apply
+        inputs:
+          provider: "azurerm"
+          command: "apply"
+          commandOptions: "tf.plan"
+          workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
+          environmentServiceNameAzureRM: $(azureResourceManagerConnection)
