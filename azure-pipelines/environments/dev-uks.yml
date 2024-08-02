@@ -1,7 +1,7 @@
 variables:
   env: "dev"
   loc: "uks"
-  azureResourceManagerConnection: "c4c44e31-c0c8-401b-824e-3fba6c4e6b68"
+  azureResourceManagerConnection: "spn-tf-dev"
   stateResourceGroup: "rg-tf-dev-01"
   stateStorageAccount: "satfdev01"
   stateContainer: "tfstate"
