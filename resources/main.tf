@@ -8,6 +8,6 @@ terraform {
 
 terraform {
   backend "local" {
-    path = "\resources"
+    path = "/"
   }
 }
