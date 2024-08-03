@@ -1,0 +1,33 @@
+trigger: none
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+resources:
+  repositories:
+    - repository: Terraform-Standard
+      type: github
+      name: yesh01b/Terraform-Standard
+      endpoint:
+      ref: main
+
+stages:
+  - stage: dev_uks_dbr_deployment
+    jobs:
+      - job: dev_uks_dbr_deployment
+        steps:
+          - checkout: Terraform-Standard
+          - task: DataThirstLtd.databricksDeployScriptsTasks.databricksDeployScriptsTask.databricksDeployScripts@0
+            displayName: "DBR notebooks deployment"
+            inputs:
+              authMethod: servicePrincipal
+              applicationID: "$(spn_appid)"
+              spSecret: "$(Parameters_spSecret)"
+              resourceGroup: "$(dev_uks_rg)"
+              workspace: "$(dev_uks_workspace)"
+              subscriptionId: "$(subscription_id)"
+              tenantId: "$(tenant_id)"
+              region: uksouth
+              localPath: "$(local_path)"
+              databricksPath: "$(dbr_path)" 
