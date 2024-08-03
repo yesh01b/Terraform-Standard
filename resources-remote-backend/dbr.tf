@@ -36,10 +36,10 @@ resource "azurerm_databricks_workspace" "dbr" {
 
   custom_parameters {
     virtual_network_id = azurerm_virtual_network.vnet.id
-    private_subnet_name = azurerm_subnet.dbr_private_snet.name
-    public_subnet_name = azurerm_subnet.dbr_public_snet.name
+    private_subnet_name = azurerm_subnet.snet_dbr_public.name
+    public_subnet_name = azurerm_subnet.snet_dbr_private.name
     no_public_ip = true
-    private_subnet_network_security_group_association = azurerm_subnet_network_security_group_association.dbr_private_snet.id
-    public_subnet_network_security_group_association = azurerm_subnet_network_security_group_association.dbr_public_snet.id
+    private_subnet_network_security_group_association_id = azurerm_subnet_network_security_group_association.dbr_private_snet.id
+    public_subnet_network_security_group_association_id = azurerm_subnet_network_security_group_association.dbr_public_snet.id
   }
 }
