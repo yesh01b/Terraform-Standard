@@ -23,3 +23,12 @@ variable "rg_vnet_name" {
   description = "Resource group for networking related resources"
   default = "rg-vnet-dev-01"
 }
+variable "vnet_name" {
+  type = string
+  description = "Vritual Network name"
+  default = "vnet-dev-01"
+}
+variable "address_space" {
+  type = list(string)
+  default = [ "10.1.1.0/24" ]
+}
