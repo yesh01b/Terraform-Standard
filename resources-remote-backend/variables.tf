@@ -15,3 +15,11 @@ variable "location" {
   description = "The location where the resource is deploying"
   default = "uksouth"
 }
+
+## Networking variables
+
+variable "rg_vnet_name" {
+  type = string
+  description = "Resource group for networking related resources"
+  default = "rg-vnet-dev-01"
+}
