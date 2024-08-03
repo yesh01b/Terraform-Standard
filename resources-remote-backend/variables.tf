@@ -60,3 +60,16 @@ variable "nsg_dbr_private_name" {
   description = "Network security for the DBR -private"
   default = "nsg-snet-dbr-private-dev-01"
 }
+
+## DBR variables
+
+variable "dbr_name" {
+  type = string
+  description = "DBR name"
+  default = "dbr-dev-01"
+}
+variable "managed_resource_group_name" {
+  type = string
+  description = "Managed resoruce group for DBR"
+  default = "mrg-dbr-dev-01"
+}
