@@ -21,6 +21,19 @@ resource "azurerm_subnet" "snet_dbr_public" {
   resource_group_name  = azurerm_resource_group.rg_vnet.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.dbr_public_address_prefixes
+  service_endpoints    = ["Microsoft.Storage",]
+  delegation {
+          name = "Microsoft.Databricks/workspaces"
+
+          service_delegation {
+              name  = "Microsoft.Databricks/workspaces"
+              actions = [
+                  "Microsoft.Network/virtualNetworks/subnets/join/action",
+                  "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+                  "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+                ]
+          }
+  }
 }
 resource "azurerm_subnet" "snet_dbr_private" {
   name                 = var.subnet_dbr_private_name
@@ -28,3 +41,5 @@ resource "azurerm_subnet" "snet_dbr_private" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.dbr_private_address_prefixes
 }
+
+## Network Security Group - DBR
