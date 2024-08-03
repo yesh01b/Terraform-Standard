@@ -50,3 +50,13 @@ variable "dbr_private_address_prefixes" {
   type = list(string)
   default = [ "10.1.1.64/26" ]
 }
+variable "nsg_dbr_public_name" {
+  type = string
+  description = "Network security for the DBR -public"
+  default = "nsg-snet-dbr-public-dev-01"
+}
+variable "nsg_dbr_private_name" {
+  type = string
+  description = "Network security for the DBR -private"
+  default = "nsg-snet-dbr-public-dev-01"
+}

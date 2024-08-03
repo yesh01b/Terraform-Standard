@@ -55,4 +55,16 @@ resource "azurerm_subnet" "snet_dbr_private" {
   }
 }
 
-## Network Security Group - DBR
+## Public - Network Security Group - DBR
+resource "azurerm_network_security_group" "nsg_dbr_public" {
+  name = var.nsg_dbr_public_name
+  location = azurerm_resource_group.rg_vnet.location
+  resource_group_name = azurerm_resource_group.rg_vnet.name
+}
+
+## Private - Network Security Group - DBR
+resource "azurerm_network_security_group" "nsg_dbr_private" {
+  name = var.nsg_dbr_private_name
+  location = azurerm_resource_group.rg_vnet.location
+  resource_group_name = azurerm_resource_group.rg_vnet.name
+}
