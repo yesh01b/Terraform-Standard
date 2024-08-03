@@ -56,6 +56,36 @@ stages:
         steps:
           - checkout: self
             clean: true
+          - task: TerraformInstaller@1
+            displayName: Install Terraform 1.7.0
+            inputs:
+              terraformVersion: 1.7.0
+
+          - task: TerraformTaskv2@2
+            displayName: Intialise Terraform
+            inputs:
+              provider: "azurerm"
+              command: "init"
+              workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
+              backendServiceArm: $(azureResourceManagerConnection)
+              backendAzureRmResourceGroupName: $(stateResourceGroup)
+              backendAzureRmStorageAccountName: $(stateStorageAccount)
+              backendAzureRmContainerName: $(stateContainer)
+              backendAzureRmKey: "tf-$(env)-$(loc).tfstate"
+          - task: TerraformTaskv2@2
+            displayName: Terraform Validate
+            inputs:
+              provider: "azurerm"
+              command: "validate"
+              workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
+          - task: TerraformTaskv2@2
+            displayName: Terraform Plan
+            inputs:
+              provider: "azurerm"
+              command: "plan"
+              commandOptions: "-out=tf.plan"
+              workingDirectory: "$(System.DefaultWorkingDirectory)/resources-remote-backend"
+              environmentServiceNameAzureRM: $(azureResourceManagerConnection)
             
           - task: TerraformTaskv2@2
             displayName: Terraform Apply
