@@ -39,14 +39,14 @@ variable "subnet_dbr_public_name" {
 }
 variable "dbr_public_address_prefixes" {
   type = list(string)
-  default = [ "10.1.1.10/26" ]
+  default = [ "10.1.1.0/26" ]
 }
-variable "subnet_dbr_private_name" {
-  type = string
-  description = "Private subnet for the DBR"
-  default = "snet-dbr-private-dev-01"
-}
-variable "dbr_private_address_prefixes" {
-  type = list(string)
-  default = [ "10.1.1.20/26" ]
-}
+# variable "subnet_dbr_private_name" {
+#   type = string
+#   description = "Private subnet for the DBR"
+#   default = "snet-dbr-private-dev-01"
+# }
+# variable "dbr_private_address_prefixes" {
+#   type = list(string)
+#   default = [ "10.1.1.20/26" ]
+# }
