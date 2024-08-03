@@ -48,5 +48,5 @@ variable "subnet_dbr_private_name" {
 }
 variable "dbr_private_address_prefixes" {
   type = list(string)
-  default = [ "10.1.1.0/24" ]
+  default = [ "10.1.1.64/26" ]
 }
